@@ -16,14 +16,14 @@ async def list_transactions(db: Session = Depends(get_db), skip: int = 0, limit:
     return response
 
 @router.get("/transactions/{id}", tags=["Transactions"])
-async def fetch_transaction(transaction_id: int, db: Session = Depends(get_db)):
-    response = get_transaction(db, transaction_id)
+async def fetch_transaction(id: int, db: Session = Depends(get_db)):
+    response = get_transaction(db, id)
     return response
 
 @router.post("/transactions", tags=["Transactions"])
-async def add_transaction(request: TransactionCreate, db: Session = Depends(get_db)):
+async def add_transaction(transaction: TransactionCreate, db: Session = Depends(get_db)):
     try:
-        transaction = create_transaction(db, request)
+        transaction = create_transaction(db, transaction)
         return transaction
     except IntegrityError:
         db.rollback()

@@ -5,9 +5,10 @@ from sqlalchemy import extract
 
 def get_all_transactions(db: Session, skip: int, limit: int, month: int, year: int) -> list[Transaction]:
     if year and month:
-        transactions = db.query(Transaction).offset(skip).limit(limit).filter(
+        transactions = db.query(Transaction).filter(
                                         extract('year', Transaction.date) == year,
-                                        extract('month', Transaction.date) == month).all()
+                                        extract('month', Transaction.date) == month
+                                        ).offset(skip).limit(limit).all()
     else:
         transactions = db.query(Transaction).offset(skip).limit(limit).all()
     return transactions

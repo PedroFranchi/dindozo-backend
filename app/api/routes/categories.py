@@ -16,8 +16,8 @@ async def list_categories(db: Session = Depends(get_db)):
     return response
 
 @router.get("/categories/{id}", tags=["Categories"])
-async def fetch_category(category_id: int, db: Session = Depends(get_db)):
-    response = get_category(db, category_id)
+async def fetch_category(id: int, db: Session = Depends(get_db)):
+    response = get_category(db, id)
     return response
 
 @router.post("/categories", tags=["Categories"])
@@ -33,6 +33,6 @@ async def add_category(request: CategoryCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail="Internal server error")
 
 @router.delete("/categories/{id}", tags=["Categories"])
-async def remove_category(category_id: int, db: Session = Depends(get_db)):
-    response = delete_category_by_id(db, category_id)
+async def remove_category(id: int, db: Session = Depends(get_db)):
+    response = delete_category_by_id(db, id)
     return None
