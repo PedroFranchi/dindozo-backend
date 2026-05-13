@@ -2,6 +2,9 @@ from sqlalchemy.orm import Session
 from app.models.import_log import ImportLog
 from app.schemas.import_log import ImportLogCreate
 
+def get_all_import_logs(db: Session) -> list[ImportLog]:
+    return db.query(ImportLog).all()
+
 def create_import_log (import_log: ImportLogCreate, db: Session):
     db_import_log = ImportLog(
         filename=import_log.filename,

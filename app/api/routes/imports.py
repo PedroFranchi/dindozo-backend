@@ -6,7 +6,7 @@ from app.services.categorizer import categorize
 from app.repositories.transaction import create_transaction
 from app.schemas.transaction import TransactionCreate
 from app.schemas.import_log import ImportLogCreate
-from app.repositories.import_log import create_import_log
+from app.repositories.import_log import create_import_log, get_all_import_logs
 
 import io
 
@@ -15,6 +15,11 @@ from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException
 
 router = APIRouter()
+
+@router.get("/imports", tags=["Imports"])
+async def list_imports(db: Session = Depends(get_db)):
+    response = get_all_import_logs(db)
+    return response
 
 @router.post("/imports", tags=['Imports'])
 async def add_csv(csv: UploadFile, db: Session = Depends(get_db)):
