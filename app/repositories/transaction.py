@@ -33,3 +33,6 @@ def create_transaction(db: Session, transaction: TransactionCreate):
 
 def get_transaction_by_categoty(db: Session, transaction_category: int):
     return db.query(Transaction).filter(Transaction.category_id == transaction_category).all()
+
+def count_transactions(db: Session) -> int:
+    return db.query(Transaction).count()

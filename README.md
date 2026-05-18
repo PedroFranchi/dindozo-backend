@@ -106,9 +106,8 @@ cp .env.example .env
 
 Edit `.env`:
 ```
-DATABASE_URL=sqlite:///./dindozo.db
+DB_URL=sqlite:///./dindozo.db
 APP_NAME=DinDoZo
-DEBUG=True
 ```
 
 **5. Run migrations**
